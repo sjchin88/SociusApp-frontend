@@ -1,11 +1,15 @@
 import '@pages/auth/login/Login.scss';
 import { FaArrowRight } from 'react-icons/fa';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '@components/input/Input';
 import Button from '@components/button/Button';
 import { useState, useEffect } from 'react';
 import { authService } from '@services/api/auth/auth.service';
+import useLocalStorage from '@hooks/useLocalStorage';
+import useSessionStorage from '@hooks/useSessionStorage';
+import { useDispatch } from 'react-redux';
+import { Utils } from '@services/utils/utils.service';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,6 +20,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState();
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+  const [pageReload] = useSessionStorage('pageReload', 'set');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginUser = async (event) => {
     setLoading(true);
@@ -27,12 +36,16 @@ const Login = () => {
         username,
         password
       });
-      console.log(result);
+      // console.log(result);
+      // set logged in to true in local storage
+      setLoggedIn(keepLoggedIn);
+      // store username in local storage
+      setStoredUsername(username);
+      // dispatch user to redux
       setLoading(false);
-      setUser(result.data.user);
-      setKeepLoggedIn(keepLoggedIn);
       setHasError(false);
       setAlertType('alert-success');
+      Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
       setLoading(false);
       setHasError(true);
@@ -44,10 +57,9 @@ const Login = () => {
   useEffect(() => {
     if (loading && !user) return;
     if (user) {
-      console.log('navigate to stream page from login page');
-      setLoading(false);
+      navigate('/app/social/streams');
     }
-  }, [loading, user]);
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner">

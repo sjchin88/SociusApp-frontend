@@ -1,10 +1,13 @@
 import '@pages/auth/register/Register.scss';
-
+import { useNavigate } from 'react-router-dom';
 import Input from '@components/input/Input';
 import Button from '@components/button/Button';
 import { useState, useEffect } from 'react';
 import { Utils } from '@services/utils/utils.service';
 import { authService } from '@services/api/auth/auth.service';
+import useLocalStorage from '@hooks/useLocalStorage';
+import useSessionStorage from '@hooks/useSessionStorage';
+import { useDispatch } from 'react-redux';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +18,11 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+  const [pageReload] = useSessionStorage('pageReload', 'set');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // event will be coming from the page
   const registerUser = async (event) => {
@@ -32,11 +40,16 @@ const Register = () => {
         avatarColor,
         avatarImage
       });
-      console.log(result);
+      // set logged in to true in local storage
+      setLoggedIn(true);
+      // store username in local storage
+      setStoredUsername(username);
+      // dispatch user to redux
+      // console.log(result);
       setLoading(false);
-      setUser(result.data.user);
       setHasError(false);
       setAlertType('alert-success');
+      Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
       setLoading(false);
       setHasError(true);
@@ -48,10 +61,9 @@ const Register = () => {
   useEffect(() => {
     if (loading && !user) return;
     if (user) {
-      console.log('navigate to stream page');
-      setLoading(false);
+      navigate('/app/social/streams');
     }
-  }, [loading, user]);
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner">

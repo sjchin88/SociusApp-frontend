@@ -1,5 +1,6 @@
 import { floor, random } from 'lodash';
 import { avatarColors } from '@services/utils/static.data';
+import { addUser } from '@redux/reducers/user/user.reducer';
 
 export class Utils {
   static avatarColor() {
@@ -28,5 +29,20 @@ export class Utils {
     context.textBaseline = 'middle';
     context.fillText(text, canvas.width / 2, canvas.height / 2);
     return canvas.toDataURL('image/png');
+  }
+
+  /**
+   * Function
+   * @param {*} result result to be returned
+   * @param {*} pageReload function to set data to the session
+   * @param {*} dispatch function dispatch action
+   * @param {*} setUser set user to the state
+   */
+  static dispatchUser(result, pageReload, dispatch, setUser) {
+    pageReload(true);
+    // call the action addUser, the passed in arguments need to be same as
+    // provided by backend
+    dispatch(addUser({ token: result.data.token, profile: result.data.user }));
+    setUser(result.data);
   }
 }
