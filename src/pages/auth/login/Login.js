@@ -42,7 +42,6 @@ const Login = () => {
       // store username in local storage
       setStoredUsername(username);
       // dispatch user to redux
-      setLoading(false);
       setHasError(false);
       setAlertType('alert-success');
       Utils.dispatchUser(result, pageReload, dispatch, setUser);

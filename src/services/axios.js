@@ -1,4 +1,3 @@
-// contain the base method
 import axios from 'axios';
 
 // end point /api/v1 need to match the back end

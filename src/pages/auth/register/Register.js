@@ -1,10 +1,10 @@
-import '@pages/auth/register/Register.scss';
-import { useNavigate } from 'react-router-dom';
 import Input from '@components/input/Input';
 import Button from '@components/button/Button';
+import '@pages/auth/register/Register.scss';
 import { useState, useEffect } from 'react';
 import { Utils } from '@services/utils/utils.service';
 import { authService } from '@services/api/auth/auth.service';
+import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '@hooks/useLocalStorage';
 import useSessionStorage from '@hooks/useSessionStorage';
 import { useDispatch } from 'react-redux';
@@ -46,7 +46,6 @@ const Register = () => {
       setStoredUsername(username);
       // dispatch user to redux
       // console.log(result);
-      setLoading(false);
       setHasError(false);
       setAlertType('alert-success');
       Utils.dispatchUser(result, pageReload, dispatch, setUser);
