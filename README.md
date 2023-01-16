@@ -18,7 +18,7 @@
   <p align="center">
     An ongoing, experimental social media app project from me
     <br />
-    <a href=""><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/sjchin88/SociusApp-frontend/tree/develop/docs"><strong>Explore the docs »</strong></a>
     <br />
     <a href="https://github.com/sjchin88/SociusApp-backend"><strong>Checkout the back-end »</strong></a>
     <br />
@@ -65,7 +65,7 @@
 
 <!--[![Product Name Screen Shot][product-screenshot]](https://example.com)-->
 
-This is the backend for a social media application project built mainly based on MERN (Mongo DB, Express, React, Node.js). 
+This is the front end for a social media application project built in javascript
 
 The project structure followed the following course in Udemy: https://www.udemy.com/course/node-with-react-build-deploy-a-fullstack-web-application/ 
 with some ongoing improvement feature of my own.
@@ -82,7 +82,7 @@ with some ongoing improvement feature of my own.
 | Operating System      | Windows 10 Home Edition (for main code) and Ubuntu 22.04.1 LTS (to run the redis server)      |
 | IDE                |visual studio code |
 |Browser            | Chrome |
-|Main language     | typescript (note the front-end is developed using javascript)|
+|Main language     | javascript |
 
 #### Main Tools 
 | Main Tool      | Description of Usage |
@@ -90,11 +90,8 @@ with some ongoing improvement feature of my own.
 | AWS | Cloud computing platform, used for hosting the backend and frontend |
 | CircleCI | CI/CD platform |
 | Cloudinary | for image and video upload |
-| MongoDB | for database |
 | NodeJS | for Javascript runtime development |
-| Redis | In-memory cache management |
-| Sendgrid| for email delivery |
-| Terraform  | Infrastructure as code tool for AWS |
+
 
 #### Main npm libraries used
 
@@ -104,31 +101,18 @@ Figure below illustrate hows the main tools and libraries work together to deliv
 
 | NPM Library      | Description of Usage |
 | ----------- | ----------- |
-| bull, bullmq, @bull-board/express, @bull-board/ui  | manage the jobs involving database in queue |
-| @faker-js/faker   | generate test data for testing |
-| @jest/types   | main testing tool |
 | axios  | make http requests from node.js, used for health check and seeding random data |
-| bcryptjs  | for password encryption |
-| bunyan  | for json logging |
-| compression  | compression middleware for node.js, used to compress (and thus decrease) the downloadable amount of data send to users |
-| cookie-session, cors, helmet, hpp  | cookie-session : store client's cookie on server side,  cors: for CORS, helmet: setting secure options for various HTTP headers, hpp: Express middleware to protect against HTTP Parameter Pollution attacks |
-| dotenv  | manage environment keys |
-| ejs, nodemailer  | ejs: render email templates, nodemailer: handling email communications |
-| ip  | get the ip address |
-| joi  | for form input validations |
-| jsonwebtoken  | for JSON Web Token (JWT) |
+| jsdoc  | generate documentation |
 | lodash   | javascript tools help with common data structures operations around arrays, strings, objects |
-| moment  | to manipulate date |
-| socket.io   | manage socket connection, can be used to send immediate feedback to client's request |
-| swagger-stats  | manage website traffic statistic to the backend  |
-| typedoc  | generate documentation |
+| msw  | for testing |
+| redux toolkit  | state management |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-You can run the backend on your local machine for testing. 
+You can run the front end on your local machine for testing. 
 The following installation and set up guides is for running the backend app using visual studio code. 
 
 ### Prerequisites
@@ -139,9 +123,7 @@ The following installation and set up guides is for running the backend app usin
   ```sh
   npm install npm@latest -g
   ```
-3. Install MongoDB. https://www.mongodb.com/docs/manual/administration/install-community/
-4. Install MongoDB Compass. https://www.mongodb.com/try/download/compass
-5. Install Redis. https://redis.io/docs/getting-started/installation/ (Useful video to install - https://www.youtube.com/watch?v=_nFwPTHOMIY)
+3. Install and run the backend
 
 ### Installation
 
@@ -158,22 +140,8 @@ The following installation and set up guides is for running the backend app usin
 ### .env configuration
 | .env key     | value |
 | ----------- | ----------- |
-|DATABASE_URL | 'mongodb://127.0.0.1:27017/chatapp-backend'|
-|JWT_TOKEN | 'thisisatokenfromme' |
-|NODE_ENV | 'development'|
-|SECRET_KEY_ONE | 'thisisasecretcookiekey'|
-|SECRET_KEY_TWO | 'thisisanothersecretcookiekey'|
-|CLIENT_URL | 'http://localhost:3000'|
-|API_URL | 'http://localhost:5000/api/v1'|
-|REDIS_HOST| = 'redis://127.0.0.1:6379' |
-|CLOUD_NAME| <your cloudinary cloud name> |
-|CLOUD_API_KEY|<your cloudinary API key> |
-|CLOUD_API_SECRET|<your cloudinary API secret key> |
-|SENDER_EMAIL| <your email account used for testing> |
-|SENDER_EMAIL_PASSWORD|<your email account password> |
-|SENDGRID_API_KEY| < your sendgrid api key> |
-|SENDGRID_SENDER|< your sendgrid account> |
-|EC2_URL|http://169.254.169.254/latest/meta-data/instance-id|
+|REACT_APP_BASE_ENDPOINT | http://localhost:5000 |
+|REACT_APP_ENVIRONMENT | development |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -185,29 +153,31 @@ The following installation and set up guides is for running the backend app usin
 ### Useful commands
 | command     | what it does |
 | ----------- | ----------- |
-|npm run start | start the backend app in production mode with pm2 management of app instances |
-|npm run stop | stop the started backend |
-|npm run dev | start the backend app in development mode (recommended to start with) |
+|npm run start | start the front end app |
 |npm run build | build the project into js files |
 |npm run test | run all the test cases |
-|npm run seeds:dev | generate some random data, right now will generate some users data |
 
-### End points
-You can check the list of end points available <a href="https://github.com/sjchin88/SociusApp-backend/tree/develop/endpoints"><strong>here</strong></a>
   
-For more details on the functions available, please refer to the [Documentation](https://github.com/sjchin88/SociusApp-backend/tree/develop/docs)
+For more details on the functions available, please refer to the [Documentation](https://github.com/sjchin88/SociusApp-frontend/tree/develop/docs)
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- ROADMAP -->
 ## TODO Roadmap
-
-- [ ] Deploy backend application to AWS (target by end of Jan)
-- [ ] Features Addition:
-    - [ ] delete comments
+- [ ] Continue features development:
+    - [ ] Streams page component
+    - [ ] Notification page component
+    - [ ] Post components and features
+    - [ ] Post reactions and comments features
+    - [ ] People's Page Component
+    - [ ] Follow and Unfollow Features
+    - [ ] Images Page Component
+    - [ ] Private Chat Features
+    - [ ] Profile Page Component
+    - [ ] Video Upload Feature
+- [ ] Deploy front-end application to AWS 
 - [ ] Improvements:
-    - [ ] improve how datas are add, retrieve and edit in the backend to improve the efficiency of the operations
     - [ ] improve documentations, include a final list of api end points available with explanation. 
 - [ ] Multi-language Support
     - [ ] Chinese
