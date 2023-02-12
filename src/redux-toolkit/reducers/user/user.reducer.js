@@ -1,10 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * Set initial state to null
+ */
 const initialState = {
   token: '',
   profile: null
 };
 
+/**
+ * userSlice to define actions in adding user, clear user and update userprofile
+ */
 const userSlice = createSlice({
   name: 'user',
   initialState,

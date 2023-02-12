@@ -2,6 +2,9 @@ import { floor, random } from 'lodash';
 import { avatarColors } from '@services/utils/static.data';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 
+/**
+ * Utils class contains helper methods
+ */
 export class Utils {
   static avatarColor() {
     // return the random index of an avatar color
@@ -46,6 +49,10 @@ export class Utils {
     setUser(result.data.user);
   }
 
+  /**
+   * Function to clear the redux store
+   * @param {Object} param0 include functions : dispatch, deleteStorageUsername, deleteSessionPageReload, and setLoggedIn
+   */
   static clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn }) {
     dispatch(clearUser());
     // dispatch clear notification action
@@ -54,6 +61,10 @@ export class Utils {
     setLoggedIn(false);
   }
 
+  /**
+   * Simple function to return the value of app environment
+   * @returns string value of app environment
+   */
   static appEnvironment() {
     const env = process.env.REACT_APP_ENVIRONMENT;
     if (env === 'development') {
@@ -61,5 +72,30 @@ export class Utils {
     } else if (env === 'staging') {
       return 'STG';
     }
+  }
+
+  static generateString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = ' ';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  /**
+   * Function to map the setting text to setting dropdown menu
+   * @param {*} setSettings function to set the settings
+   */
+  static mapSettingsDropdownItems(setSettings) {
+    const items = [];
+    const item = {
+      topText: 'My Profile',
+      subText: 'View personal profile.'
+    };
+    items.push(item);
+    setSettings(items);
+    return items;
   }
 }
